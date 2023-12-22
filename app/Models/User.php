@@ -61,4 +61,18 @@ class User extends Authenticatable implements FilamentUser
             return false;
         }
     }
+
+/*    public function canAccessPanel(Panel $panel): bool
+    {
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+
+        if ($panel->getId() === 'admin' && $->roles->contains('admin')) {
+            return true;
+        } else if ($panel->getId() === 'admin' && $->roles->contains('user')) {
+            return true;
+        } else {
+            return false;
+        }
+    } */
 }

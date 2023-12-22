@@ -28,6 +28,7 @@ class UserPanelProvider extends PanelProvider
             ->path('user')
             ->login()
             ->registration()
+            ->passwordReset()
             ->profile()
             ->topNavigation()
             ->colors([

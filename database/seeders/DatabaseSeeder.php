@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $user = User::factory()->create([
+        /*$user = User::factory()->create([
              'name' => 'Admin2',
              'email' => 'admin@test.com',
          ]);
         $role = Role::create(['name' => 'Admin']);
-        $user->assignRole($role);
+        $user->assignRole($role);*/
     }
 }

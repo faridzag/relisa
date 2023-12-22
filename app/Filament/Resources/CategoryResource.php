@@ -37,9 +37,15 @@ class CategoryResource extends Resource
                     ->required()
                     ->unique()
                     ->live()
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                    ->afterStateUpdated(function (string $operation, string $state, Set $set){
+                        if ($operation === 'edit') {
+                            return;
+                        }
+                        $set('slug', Str::slug($state));
+                    }),
                     TextInput::make('slug')
-                    ->required(),
+                    ->required()
+                    ->unique(ignoreRecord: true),
                 ])
             ]);
     }

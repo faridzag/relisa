@@ -47,9 +47,15 @@ class EventResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->live()
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                    ->afterStateUpdated(function (string $operation, string $state, Set $set){
+                        if ($operation === 'edit') {
+                            return;
+                        }
+                        $set('slug', Str::slug($state));
+                    }),
                     TextInput::make('slug')
-                    ->required(),
+                    ->required()
+                    ->unique(ignoreRecord: true),
                     TextInput::make('ketentuan')
                     ->columnSpan(3)
                     ->required()
@@ -62,7 +68,8 @@ class EventResource extends Resource
                     ->columnSpan(3),
                     DatePicker::make('tanggal')
                     ->native(false)
-                    ->displayFormat('d/m/Y'),
+                    ->displayFormat('d/m/Y')
+                    ->minDate(now()),
                     FileUpload::make('poster')
                     ->columnSpan(3)
                     ->image()
@@ -70,14 +77,14 @@ class EventResource extends Resource
                     ->disk('public')
                     ->directory('posters')
                     ->downloadable()
-                    ->openable()
-                    ->imagePreviewHeight('200')
+                    ->openable(),
+                    /*->imagePreviewHeight('200')
                     ->loadingIndicatorPosition('left')
                     ->panelAspectRatio('2:1')
                     ->panelLayout('integrated')
                     ->removeUploadedFileButtonPosition('right')
                     ->uploadButtonPosition('left')
-                    ->uploadProgressIndicatorPosition('left'),
+                    ->uploadProgressIndicatorPosition('left'),*/
                 ])->columns(4)
             ]);
     }
