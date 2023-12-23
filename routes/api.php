@@ -25,5 +25,5 @@ Route::post('/login', [AuthenticationController::class, 'login']);
 Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/user', [AuthenticationController::class, 'user'])->middleware('auth:sanctum');
 
-//UserApiService::routes();
-//EventApiService::routes();
+UserApiService::routes(['middleware' => 'auth:sanctum']);
+EventApiService::routes(['middleware' => 'auth:sanctum']);
